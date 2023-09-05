@@ -7,7 +7,7 @@ export default function Logo() {
     return (
         <div className="animate__animated animate__tada animate__slow">
         <div className={styles.Logo}>
-            <div>Shukea</div>
+            <div>Ikea</div>
         </div>
         </div>
     );
