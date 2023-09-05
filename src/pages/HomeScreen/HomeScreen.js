@@ -8,3 +8,14 @@ export default function HomeScreen(props) {
         </div>
     )
 }
+
+//==== NEEDED COMPONENTS FOR HOME SCREEN ====//
+    /*
+    Logo
+    USER PORTAL COMPONENT
+    FOOTER COMPONENT
+    NavBar
+
+    - PICTURES & VIDEOS from Pexel's API
+    
+    */

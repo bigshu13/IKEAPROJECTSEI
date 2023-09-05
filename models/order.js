@@ -70,4 +70,8 @@ orderSchema.methods.setItemQty = function(itemId, newQty) {
     return cart.save();
 };
 
-module.exports = mongoose.model('Order', orderSchema);
+const Order = mongoose.model('Order', orderSchema);
+const LineItem = mongoose.model('LineItem', lineItemSchema)
+
+module.exports = { Order, LineItem }
+
