@@ -1,0 +1,12 @@
+//==== NEEDED COMPONENTS FOR ABOUTUS SCREEN ====//
+    /*
+    Logo
+    USER PORTAL 
+    FOOTER COMPONENT
+    NavBar
+
+    - PICTURES OF TEAM MEMBERS
+            * TEAM MEMBER MODAL W/ STATS (POP-UP STAT SHEET)
+    - STATEMENT ABOUT WEBSITE
+    - MISSION STATEMENT - (use PowerPoint Statement)
+    */

@@ -67,6 +67,16 @@ function HomeScreen(props) {
   }, /*#__PURE__*/React.createElement("h1", null, "HI"));
 }
 
+//==== NEEDED COMPONENTS FOR HOME SCREEN ====//
+/*
+Logo
+USER PORTAL COMPONENT
+FOOTER COMPONENT
+NavBar
+ - PICTURES & VIDEOS from Pexel's API
+
+*/
+
 /***/ }),
 
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./src/pages/App/App.module.scss":
