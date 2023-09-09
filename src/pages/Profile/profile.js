@@ -5,7 +5,7 @@ import * as usersAPI from '../../utilities/users-api';
 //import footer when pushed
 
 export default function Profile({ user, setUser }) {
-
+console.log(user)
   const [showProfile, setShowProfile] = useState(true);
 
 useEffect( () => {
@@ -18,8 +18,8 @@ useEffect( () => {
   return (
     <main className={styles.profile}>
       <div>
-        <Logo />
        
       </div>
     </main>
   )};
+  
