@@ -9,7 +9,7 @@ router.post('/login', dataController.login, apiController.auth)
 
 router.get('/check-token', ensureLoggedIn, checkToken)
 
-router.put('/:id', dataController.update, apiController.auth)
+router.put('/:id', ensureLoggedIn, dataController.update, apiController.auth)
 
 router.delete('/:id', dataController.delete, apiController.auth)
 

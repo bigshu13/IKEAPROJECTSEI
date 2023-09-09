@@ -1,0 +1,19 @@
+.portalcontainer {
+    display:flex;
+    justify-content: space-evenly;
+}
+
+    .portalcontainer .loggedin {
+        display:flex;
+        justify-content: space-evenly;
+    }
+
+    .portalcontainer .notloggedin {
+        display:flex;
+        width: 10vmin;
+        justify-content: space-evenly;
+    }
+
+    .portalcontainer .cartbtn {
+        display: flex;
+    }

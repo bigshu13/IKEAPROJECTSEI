@@ -64,7 +64,8 @@ async function addToFavorites(req, res, next) {
 		if (!user.favorites) {
 			const newFavorites = new Favorites({
 				user: req.user._id,
-				items: [item] // Use 'items' as per your schema
+				items: [item], // Use 'items' as per your schema
+				user: Favorites.isliked === true
 			});
 			await newFavorites.save();
 			user.favorites = newFavorites._id;

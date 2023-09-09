@@ -1,4 +1,18 @@
-.homeScreen {
-    font-size: x-large;
-    text-align: center;
-}
+div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    padding: 0px;
+  
+    h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 20px;
+      margin-top: 50rem;
+      width: 100%; 
+    }
+  
+    .pexels-content {
+      flex-basis: calc(50% - 5px); 
+    }
+  }

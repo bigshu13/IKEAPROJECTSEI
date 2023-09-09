@@ -1,15 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import styles from './NavBar.module.scss'
+import Logo from "../Logo/Logo";
 
-const NavBar = props => {
-	return (
-		<nav className="NavBar">
-			{props.routes.map(({ key, path }) => (
-				<Link key={key} to={path}>
-					{key}
-				</Link>
-			))}
-		</nav>
-	);
-};
+export default function NavBar({ AboutUs, Shop, Jobs }) {
 
-export default NavBar;
+    return (
+
+        <main className={styles.NavBar}>
+            <div>
+                <Logo />
+                <Link to='/HomeScreen' className='aboutBtn'>About Us</Link>
+                <Link to='/shop' className='shopBtn'>Shop</Link>
+                <Link to='/HomeScreen' className='jobsBtn'>Jobs</Link>
+            </div>
+        </main>
+    )
+}

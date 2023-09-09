@@ -37,10 +37,10 @@ const dataController = {
 	async create(req, res, next) {
 		try {
 			const user = await User.create(req.body);
-			console.log(req.body, user);
+			//console.log(req.body, user);
 			// token will be a string
 			const token = createJWT(user);
-			console.log(token);
+			//console.log(token);
 			// send back the token as a string
 			// which we need to account for
 			// in the client
@@ -77,6 +77,7 @@ const dataController = {
 			if (!user) throw new Error();
 			const match = await bcrypt.compare(req.body.password, user.password);
 			if (!match) throw new Error();
+			user.isLoggedIn = true
 			res.locals.data.user = user;
 			res.locals.data.token = createJWT(user);
 			next();

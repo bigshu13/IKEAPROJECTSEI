@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const itemSchema = require('./itemSchema');
+const mongoose = require('mongoose')
+const { model, Schema } = require('mongoose')
+const itemSchema = require('./itemSchema')
 
-const lineItemSchema = new Schema ({
+const lineItemSchema = new Schema({
     quantity: {type: Number, default: 1},
     item: itemSchema
 }, {
@@ -61,17 +61,16 @@ orderSchema.methods.setItemQty = function(itemId, newQty) {
     const cart = this;
 
     const lineItem = cart.lineItems.find(lineItem => lineItem.item._id.equals(itemId));
+    console.log(lineItem)
     if (lineItem && newQty <= 0) {
-
+        console.log('deleting line item')
         lineItem.deleteOne();
     } else if (lineItem) {
+        console.log('adding line item')
         lineItem.quantity = newQty;
     }
     return cart.save();
 };
 
-const Order = mongoose.model('Order', orderSchema);
-const LineItem = mongoose.model('LineItem', lineItemSchema)
-
-module.exports = { Order, LineItem }
+module.exports = model('Order', orderSchema)
 
