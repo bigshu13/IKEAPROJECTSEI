@@ -13,6 +13,7 @@ import * as ordersAPI from '../../utilities/order-api';
 import HomeScreen from '../HomeScreen/HomeScreen';
 import Shop from '../Shopping/Shopping';
 import Cart from '../Cart/Cart';
+import Profile from '../Profile/profile';
 
 import Footer from '../../components/Footer/Footer';
 import UserPortal from '../../components/UserPortal/UserPortal';
@@ -74,6 +75,7 @@ export default function App() {
 					}
 				/>
 				<Route path="/shop" element={<Shop cart={cart} setCart={setCart} />} />
+				<Route path="/profile" element={<Profile user={user} setUser={setUser} />} />
 				<Route
 					path="/guestSignUp"
 					element={
