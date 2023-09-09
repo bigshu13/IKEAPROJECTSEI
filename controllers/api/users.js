@@ -104,6 +104,15 @@ const dataController = {
     } catch (error) {
         res.status(400).json({ message: error.message  })
     }
+  },
+  async profile (req, res, next) {
+	try {
+		const user = await User.findById(req.user._id)
+		res.locals.data.user = user
+		res.status(204).json({ message: 'User found!'})
+	} catch (error) {
+		res.status(400).json({ message: error.message  })
+	}
   }
 
 };

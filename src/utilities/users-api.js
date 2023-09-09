@@ -13,3 +13,7 @@ export function login(credentials) {
 export function updateUser(updatedUserData, userId) {
     return sendRequest(`${BASE_URL}/${userId}`, 'PUT', updatedUserData)
 }
+
+export function getUser() {
+    return sendRequest(`${BASE_URL}/profile`);
+}

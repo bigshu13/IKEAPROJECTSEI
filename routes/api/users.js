@@ -13,4 +13,6 @@ router.put('/:id', dataController.update, apiController.auth)
 
 router.delete('/:id', dataController.delete, apiController.auth)
 
+router.get('/profile', ensureLoggedIn, dataController.profile)
+
 module.exports = router

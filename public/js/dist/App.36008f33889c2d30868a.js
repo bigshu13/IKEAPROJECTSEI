@@ -34,8 +34,13 @@ root.render( /*#__PURE__*/React.createElement(react__WEBPACK_IMPORTED_MODULE_0__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var _App_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.module.scss */ "./src/pages/App/App.module.scss");
+/* harmony import */ var _utilities_users_services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utilities/users-services */ "./src/utilities/users-services.js");
+/* harmony import */ var _utilities_order_api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utilities/order-api */ "./src/utilities/order-api.js");
 /* harmony import */ var _HomeScreen_HomeScreen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../HomeScreen/HomeScreen */ "./src/pages/HomeScreen/HomeScreen.js");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 
@@ -43,6 +48,46 @@ root.render( /*#__PURE__*/React.createElement(react__WEBPACK_IMPORTED_MODULE_0__
 
 
 function App() {
+  const [user, setUser] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_utilities_users_services__WEBPACK_IMPORTED_MODULE_3__.getUser)());
+  const [showCart, setShowCart] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [showUserPanel, setShowUserPanel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [cart, setCart] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useNavigate)();
+  let location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useLocation)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!user) {
+      createGuestUser();
+    }
+  }, []);
+  function createGuestUser() {
+    return _createGuestUser.apply(this, arguments);
+  }
+  function _createGuestUser() {
+    _createGuestUser = _asyncToGenerator(function* () {
+      const guestUserData = {
+        username: 'guestuser',
+        email: Math.floor(Math.random() * 100000) + '@guest.com',
+        password: 'guestpassword'
+      };
+      localStorage.setItem('guestuser', guestUserData.email);
+      const guestUser = yield (0,_utilities_users_services__WEBPACK_IMPORTED_MODULE_3__.signUp)(guestUserData);
+      setUser(guestUser);
+    });
+    return _createGuestUser.apply(this, arguments);
+  }
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    function getCartItems() {
+      return _getCartItems.apply(this, arguments);
+    }
+    function _getCartItems() {
+      _getCartItems = _asyncToGenerator(function* () {
+        const cart = yield _utilities_order_api__WEBPACK_IMPORTED_MODULE_5__.getCart();
+        setCart(cart);
+      });
+      return _getCartItems.apply(this, arguments);
+    }
+    getCartItems();
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_HomeScreen_HomeScreen__WEBPACK_IMPORTED_MODULE_2__["default"], null));
 }
 
@@ -76,6 +121,210 @@ NavBar
  - PICTURES & VIDEOS from Pexel's API
 
 */
+
+/***/ }),
+
+/***/ "./src/utilities/order-api.js":
+/*!************************************!*\
+  !*** ./src/utilities/order-api.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getCart: () => (/* binding */ getCart)
+/* harmony export */ });
+/* unused harmony exports addItemToCart, setItemQtyInCart, checkout, getOrderHistory */
+/* harmony import */ var _send_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./send-request */ "./src/utilities/send-request.js");
+
+const BASE_URL = '/api/orders';
+
+// Retrieve an unpaid order for the logged in user
+function getCart() {
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/cart"));
+}
+
+// Add an item to the cart
+function addItemToCart(itemId) {
+  // Just send itemId for best security (no pricing)
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/cart/items/").concat(itemId), 'POST');
+}
+
+// Update the item's qty in the cart
+// Will add the item to the order if not currently in the cart
+// Sending info via the data payload instead of a long URL
+function setItemQtyInCart(itemId, newQty) {
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/cart/qty"), 'PUT', {
+    itemId,
+    newQty
+  });
+}
+
+// Updates the order's (cart's) isPaid property to true
+function checkout() {
+  // Changing data on the server, so make it a POST request
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/cart/checkout"), 'POST');
+}
+
+// Return all paid orders for the logged in user
+function getOrderHistory() {
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/history"));
+}
+
+/***/ }),
+
+/***/ "./src/utilities/send-request.js":
+/*!***************************************!*\
+  !*** ./src/utilities/send-request.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ sendRequest)
+/* harmony export */ });
+/* harmony import */ var _users_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users-services */ "./src/utilities/users-services.js");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function sendRequest(_x) {
+  return _sendRequest.apply(this, arguments);
+}
+function _sendRequest() {
+  _sendRequest = _asyncToGenerator(function (url) {
+    let method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'GET';
+    let payload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    return function* () {
+      const options = {
+        method
+      };
+      if (payload) {
+        options.headers = {
+          'Content-Type': 'application/json'
+        };
+        options.body = JSON.stringify(payload);
+      }
+      const token = (0,_users_services__WEBPACK_IMPORTED_MODULE_0__.getToken)();
+      if (token) {
+        options.headers = options.headers || {};
+        options.headers.Authorization = "Bearer ".concat(token);
+      }
+      const res = yield fetch(url, options);
+      if (res.ok) return res.json();
+      throw new Error('Bad Request');
+    }();
+  });
+  return _sendRequest.apply(this, arguments);
+}
+
+/***/ }),
+
+/***/ "./src/utilities/users-api.js":
+/*!************************************!*\
+  !*** ./src/utilities/users-api.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   login: () => (/* binding */ login),
+/* harmony export */   signUp: () => (/* binding */ signUp),
+/* harmony export */   updateUser: () => (/* binding */ updateUser)
+/* harmony export */ });
+/* unused harmony export getUser */
+/* harmony import */ var _send_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./send-request */ "./src/utilities/send-request.js");
+
+const BASE_URL = '/api/users';
+function signUp(userData) {
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])(BASE_URL, 'POST', userData);
+}
+function login(credentials) {
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/login"), 'POST', credentials);
+}
+function updateUser(updatedUserData, userId) {
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/").concat(userId), 'PUT', updatedUserData);
+}
+function getUser() {
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/profile"));
+}
+
+/***/ }),
+
+/***/ "./src/utilities/users-services.js":
+/*!*****************************************!*\
+  !*** ./src/utilities/users-services.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getToken: () => (/* binding */ getToken),
+/* harmony export */   getUser: () => (/* binding */ getUser),
+/* harmony export */   signUp: () => (/* binding */ signUp)
+/* harmony export */ });
+/* unused harmony exports login, updateUser, logOut */
+/* harmony import */ var _users_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users-api */ "./src/utilities/users-api.js");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function signUp(_x) {
+  return _signUp.apply(this, arguments);
+}
+function _signUp() {
+  _signUp = _asyncToGenerator(function* (userData) {
+    // Delete the network request code to the
+    // users-api.js module which will ultimately
+    // return the JWT
+    const token = yield _users_api__WEBPACK_IMPORTED_MODULE_0__.signUp(userData);
+    // Persist the token to localStorage
+    localStorage.setItem('token', token);
+    return getUser();
+  });
+  return _signUp.apply(this, arguments);
+}
+function login(_x2) {
+  return _login.apply(this, arguments);
+}
+function _login() {
+  _login = _asyncToGenerator(function* (credentials) {
+    const token = yield _users_api__WEBPACK_IMPORTED_MODULE_0__.login(credentials);
+    // Persist the token to localStorage
+    localStorage.setItem('token', token);
+    return getUser();
+  });
+  return _login.apply(this, arguments);
+}
+function getToken() {
+  const token = localStorage.getItem('token');
+  // getItem will return null if no key
+  if (!token) return null;
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  // A JWT's expiration is expressed in seconds, not milliseconds
+  if (payload.exp < Date.now() / 1000) {
+    // Token has expired
+    localStorage.removeItem('token');
+    return null;
+  }
+  return token;
+}
+function updateUser(_x3) {
+  return _updateUser.apply(this, arguments);
+}
+function _updateUser() {
+  _updateUser = _asyncToGenerator(function* (updatedUserData) {
+    // get a new token with updated user info
+    const token = yield _users_api__WEBPACK_IMPORTED_MODULE_0__.updateUser(updatedUserData);
+    // remove the current token from localStorage
+    localStorage.removeItem('token');
+    // save new token to localStorage
+    localStorage.setItem('token', token);
+    return getUser();
+  });
+  return _updateUser.apply(this, arguments);
+}
+function getUser() {
+  const token = getToken();
+  return token ? JSON.parse(atob(token.split('.')[1])).user : null;
+}
+function logOut() {
+  localStorage.removeItem('token');
+}
 
 /***/ }),
 
