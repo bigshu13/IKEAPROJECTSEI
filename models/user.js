@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
+const Profile = require('../models/profile')
 
 const SALT_ROUNDS = 5;
 //user schema will need name (string) require this to be true and email (string) require to be true, and make it unique, so emails cant be the same
@@ -20,7 +21,8 @@ const userSchema = new mongoose.Schema(
 			required: true
 		},
 		password: { type: String, minLength: 5, trim: true, required: true },
-		isLoggedIn: { type: Boolean, required: true, default: false }
+		isLoggedIn: { type: Boolean, required: true, default: false },
+		profile: {type: Schema.Types.ObjectId, ref: 'Profile'}
 	},
 	{
 		timestamps: true
@@ -34,7 +36,6 @@ userSchema.pre('save', async function (next) {
 	this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
 	return next();
 });
-
 
 //add export module at the end.
 // module.exports = mongoose.model('User', userSchema);

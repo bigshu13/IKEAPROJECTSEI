@@ -1,6 +1,7 @@
 const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Profile = require('../../models/profile');
 require('dotenv').config();
 
 
@@ -108,7 +109,9 @@ const dataController = {
   },
   async profile (req, res, next) {
 	try {
-		const user = await User.findById(req.user._id)
+		const user = await User.findById(req.user._id).populate('profile')
+		console.log(user)
+		//populate profile. after pop user, console log user
 		res.locals.data.user = user
 		res.status(204).json({ message: 'User found!'})
 	} catch (error) {

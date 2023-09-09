@@ -14,6 +14,6 @@ export function updateUser(updatedUserData, userId) {
     return sendRequest(`${BASE_URL}/${userId}`, 'PUT', updatedUserData)
 }
 
-export function getUser() {
+export function getUserProfile() {
     return sendRequest(`${BASE_URL}/profile`);
 }
