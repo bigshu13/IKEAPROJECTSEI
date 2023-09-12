@@ -1,14 +1,15 @@
 .Logo {
-    height: 20vmin;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    height: 10vmin;
     width: 20vmin;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 75%;
-    background-color: var(--orange);
+    border-radius: 50%;
+    background-color: rgb(250, 226, 4);
     color: var(--text-dark);
-    font-size: 7vmin;
-    font-style: italic;
-    border: .6vmin solid var(--tan-1);
+    font-size: 5vmin;
+    font-weight: 900 !important;
+    border: .6vmin solid blue;
     }

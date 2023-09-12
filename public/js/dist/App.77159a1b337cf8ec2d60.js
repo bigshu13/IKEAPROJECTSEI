@@ -326,9 +326,7 @@ function LoginForm(_ref) {
   \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Logo)
-/* harmony export */ });
+/* unused harmony export default */
 /* harmony import */ var _Logo_module_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Logo.module.scss */ "./src/components/Logo/Logo.module.scss");
 /* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 //import styles from the module.scss
@@ -337,11 +335,12 @@ function LoginForm(_ref) {
 //export function to have Project title
 function Logo() {
   return /*#__PURE__*/React.createElement("div", {
-    className: "animate__animated animate__tada animate__slow"
+    className: "animate__animated animate__tada animate__infinite animate__slow"
   }, /*#__PURE__*/React.createElement("div", {
     className: _Logo_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].Logo
-  }, /*#__PURE__*/React.createElement("div", null, "Ikea")));
+  }, /*#__PURE__*/React.createElement("div", null, "IKEA")));
 }
+// add onclink event to go back to home screen
 
 /***/ }),
 
@@ -429,11 +428,9 @@ function MenuListItem(_ref) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ NavBar)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var _NavBar_module_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavBar.module.scss */ "./src/components/NavBar/NavBar.module.scss");
-/* harmony import */ var _Logo_Logo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Logo/Logo */ "./src/components/Logo/Logo.js");
 /* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
 
 
 function NavBar(_ref) {
@@ -444,13 +441,13 @@ function NavBar(_ref) {
   } = _ref;
   return /*#__PURE__*/React.createElement("main", {
     className: _NavBar_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].NavBar
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_Logo_Logo__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
     to: "/HomeScreen",
     className: "aboutBtn"
-  }, "About Us"), /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+  }, "About Us"), /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
     to: "/shop",
     className: "shopBtn"
-  }, "Shop"), /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+  }, "Shop"), /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
     to: "/HomeScreen",
     className: "jobsBtn"
   }, "Jobs")));
@@ -998,40 +995,42 @@ function HomeScreen(_ref) {
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _profile_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./profile.module.scss */ "./src/pages/Profile/profile.module.scss");
-/* harmony import */ var _components_Logo_Logo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/Logo/Logo */ "./src/components/Logo/Logo.js");
-/* harmony import */ var _utilities_users_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utilities/users-api */ "./src/utilities/users-api.js");
+/* harmony import */ var _utilities_users_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utilities/users-api */ "./src/utilities/users-api.js");
 /* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 
-
 //import footer when pushed
+//import components for page
+//edit component and show component needs to toggleable 
+//State needed to see what mode the user is in edit mode or read mode
 
 function Profile(_ref) {
   let {
     user,
     setUser
   } = _ref;
-  console.log(user);
-  const [showProfile, setShowProfile] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  //console.log(user)
+  const [profile, setProfile] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    function fetchUsers() {
-      return _fetchUsers.apply(this, arguments);
+    function fetchUserProfile() {
+      return _fetchUserProfile.apply(this, arguments);
     }
-    function _fetchUsers() {
-      _fetchUsers = _asyncToGenerator(function* () {
-        const showProfile = yield _utilities_users_api__WEBPACK_IMPORTED_MODULE_3__.getUser();
-        setShowProfile(showProfile);
+    function _fetchUserProfile() {
+      _fetchUserProfile = _asyncToGenerator(function* () {
+        const userProfile = yield _utilities_users_api__WEBPACK_IMPORTED_MODULE_2__.getUserProfile();
+        setProfile(userProfile);
+        console.log(profile, userProfile);
       });
-      return _fetchUsers.apply(this, arguments);
+      return _fetchUserProfile.apply(this, arguments);
     }
-    fetchUsers();
+    fetchUserProfile();
   }, []);
   return /*#__PURE__*/React.createElement("main", {
     className: _profile_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].profile
-  }, /*#__PURE__*/React.createElement("div", null));
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Profile Page")));
 }
 ;
 
@@ -1356,7 +1355,7 @@ function _sendRequest() {
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getUser: () => (/* binding */ getUser),
+/* harmony export */   getUserProfile: () => (/* binding */ getUserProfile),
 /* harmony export */   login: () => (/* binding */ login),
 /* harmony export */   signUp: () => (/* binding */ signUp),
 /* harmony export */   updateUser: () => (/* binding */ updateUser)
@@ -1373,7 +1372,7 @@ function login(credentials) {
 function updateUser(updatedUserData, userId) {
   return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/").concat(userId), 'PUT', updatedUserData);
 }
-function getUser() {
+function getUserProfile() {
   return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/profile"));
 }
 
@@ -1592,19 +1591,20 @@ ___CSS_LOADER_EXPORT___.locals = {};
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.EDeinQzfS2N2rVW_Z1GP {
-  height: 20vmin;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  height: 10vmin;
   width: 20vmin;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 75%;
-  background-color: var(--orange);
+  border-radius: 50%;
+  background-color: rgb(250, 226, 4);
   color: var(--text-dark);
-  font-size: 7vmin;
-  font-style: italic;
-  border: 0.6vmin solid var(--tan-1);
-}`, "",{"version":3,"sources":["webpack://./src/components/Logo/Logo.module.scss"],"names":[],"mappings":"AAAA;EACI,cAAA;EACA,aAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;EACA,kBAAA;EACA,+BAAA;EACA,uBAAA;EACA,gBAAA;EACA,kBAAA;EACA,kCAAA;AACJ","sourcesContent":[".Logo {\n    height: 20vmin;\n    width: 20vmin;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    border-radius: 75%;\n    background-color: var(--orange);\n    color: var(--text-dark);\n    font-size: 7vmin;\n    font-style: italic;\n    border: .6vmin solid var(--tan-1);\n    }"],"sourceRoot":""}]);
+  font-size: 5vmin;
+  font-weight: 900 !important;
+  border: 0.6vmin solid blue;
+}`, "",{"version":3,"sources":["webpack://./src/components/Logo/Logo.module.scss"],"names":[],"mappings":"AAAA;EACI,sEAAA;EACA,cAAA;EACA,aAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;EACA,kBAAA;EACA,kCAAA;EACA,uBAAA;EACA,gBAAA;EACA,2BAAA;EACA,0BAAA;AACJ","sourcesContent":[".Logo {\n    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;\n    height: 10vmin;\n    width: 20vmin;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    border-radius: 50%;\n    background-color: rgb(250, 226, 4);\n    color: var(--text-dark);\n    font-size: 5vmin;\n    font-weight: 900 !important;\n    border: .6vmin solid blue;\n    }\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"Logo": `EDeinQzfS2N2rVW_Z1GP`
@@ -2008,7 +2008,6 @@ ___CSS_LOADER_EXPORT___.locals = {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `div {
-  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 0px;
@@ -2022,7 +2021,7 @@ div h1 {
 }
 div .lXVcQtMJkWrfFGLIyTcM {
   flex-basis: calc(50% - 5px);
-}`, "",{"version":3,"sources":["webpack://./src/pages/HomeScreen/HomeScreen.module.scss"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,eAAA;EACA,uBAAA;EACA,YAAA;AACJ;AACI;EACE,iBAAA;EACA,WAAA;EACA,mBAAA;EACA,iBAAA;EACA,WAAA;AACN;AAEI;EACE,2BAAA;AAAN","sourcesContent":["div {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center; \n    padding: 0px;\n  \n    h1 {\n      font-size: 2.5rem;\n      color: #333;\n      margin-bottom: 20px;\n      margin-top: 50rem;\n      width: 100%; \n    }\n  \n    .pexels-content {\n      flex-basis: calc(50% - 5px); \n    }\n  }"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/pages/HomeScreen/HomeScreen.module.scss"],"names":[],"mappings":"AAAA;EAEI,eAAA;EACA,uBAAA;EACA,YAAA;AAAJ;AAEI;EACE,iBAAA;EACA,WAAA;EACA,mBAAA;EACA,iBAAA;EACA,WAAA;AAAN;AAGI;EACE,2BAAA;AADN","sourcesContent":["div {\n    //display: flex;\n    flex-wrap: wrap;\n    justify-content: center; \n    padding: 0px;\n  \n    h1 {\n      font-size: 2.5rem;\n      color: #333;\n      margin-bottom: 20px;\n      margin-top: 50rem;\n      width: 100%; \n    }\n  \n    .pexels-content {\n      flex-basis: calc(50% - 5px); \n    }\n  }"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"pexels-content": `lXVcQtMJkWrfFGLIyTcM`
