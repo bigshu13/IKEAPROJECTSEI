@@ -152,3 +152,4 @@ Wireframe - https://files.slack.com/files-pri/T0351JZQ0-F05SPV77REY/image.png
 Powerpoint - https://docs.google.com/presentation/d/1w3uQSM_yr4H7RbBALjSeKd4bR-mCx_k8Szef3qlddMM/edit#slide=id.g25f6af9dd6_0_0
 
 Trello Board - https://trello.com/b/FGjsDEj3/ikea-project
+
