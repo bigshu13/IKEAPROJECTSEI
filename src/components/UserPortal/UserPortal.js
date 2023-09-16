@@ -1,6 +1,6 @@
 import styles from './UserPortal.module.scss';
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate} from 'react-router-dom';
 import { logOut } from '../../utilities/users-services';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,10 +13,13 @@ export default function UserPortal({
 	setCart,
 	createGuestUser
 }) {
+	const navigate = useNavigate()
+	
 	function handleLogOut() {
 		logOut();
 		setCart(null);
 		createGuestUser();
+		navigate('/ikea')
 	}
 
 	return (
