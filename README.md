@@ -116,6 +116,14 @@ This project makes use of the following technologies:
 - [Bootstrap](https://getbootstrap.com) for responsive design and UI components.
 - [Gulp](https://gulpjs.com) for task automation.
 - MongoDB for database functionality.
+- MERN Stack, MongoDB, Express, React, Node.js
+- Pexels API (runs the small videos on the home screen)
+- Stripe API (runs the credit card in checkout)
+- Custom Pexel API (had to make custom API for CORS to connect to backend)
+- Youtube Wireframe API (used to play music when you enter site)
+- Group API (Used for all the items on the website)
+- Bigpoppacode is starter code that has all the dependicies needed for this project. Run this "lets-code" to install it. 
+- 
 
 ### Contributing
 
